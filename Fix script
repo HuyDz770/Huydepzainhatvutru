@@ -1,0 +1,289 @@
+local r161_1 = r2_1.Sea["AddToggle"]("ToggleTrialTeleport", {Title = "Bay Đến Cửa Trial Tộc Draco", ["Description"] = "", ["Default"] = false})
+local r164_1 = function(r0_368)
+	_G.AutoTrialTeleport = r0_368
+	return
+end
+r161_1["OnChanged"](r164_1)
+
+local r163_1 = function()
+	local r0_499 = wait()
+	if not r0_499 then
+		if _G.AutoTrialTeleport then 
+			local r0_499_part = workspace.Map.PrehistoricIsland:FindFirstChild("TrialTeleport")
+			if r0_499_part then
+				local r1_499 = r0_499_part:IsA("Part")
+				if r1_499 then
+					Tween2(CFrame.new(r0_499_part.Position))
+					if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - r0_499_part.Position).Magnitude <= 1 then
+						_G.AutoTrialTeleport = false
+					end
+				end
+			end
+		end
+	end
+end
+spawn(r163_1)
+
+local r162_1 = r2_1.Sea["AddSection"]("Đảo Dung Nham")
+local r163_1 = r2_1.Sea["AddParagraph"]({Title = "Trạng Thái Đảo Dung Nham", ["Content"] = ""})
+
+local r165_1 = function()
+	local r1_516 = function()
+		local r0_517 = wait()
+		if not r0_517 then
+			local r0_517_map = game:GetService("Workspace").Map:FindFirstChild("PrehistoricIsland")
+			if r0_517_map then
+				r163_1:SetDesc("Đảo Dung Nham: ✅️")
+			else
+				r163_1:SetDesc("Đảo Dung Nham: ❌️")
+			end
+		end
+		return
+	end
+	pcall(r1_516)
+	return
+end
+spawn(r165_1)
+
+local r164_1 = r2_1.Sea["AddToggle"]("ToggleTPVolcano", {Title = "Bay Đến Đảo Dung Nham", ["Description"] = "", ["Default"] = false})
+local r167_1 = function(r0_526)
+	_G.TweenToPrehistoric = r0_526
+	return
+end
+r164_1["OnChanged"](r167_1)
+r0_1.Options["ToggleTPVolcano"]["SetValue"](false)
+
+local r166_1 = function()
+	local r0_201 = wait()
+	if not r0_201 then
+		if _G.TweenToPrehistoric then
+			local r1_201 = game:GetService("Workspace").Map:FindFirstChild("PrehistoricIsland")
+			if r1_201 then
+				local r2_201 = r1_201:FindFirstChild("Core")
+				if r2_201 then
+					local r2_201_relic = r2_201:FindFirstChild("PrehistoricRelic")
+					if r2_201_relic then
+						local r3_201 = r2_201_relic:FindFirstChild("Skull")
+						if r3_201 then
+							Tween2(CFrame.new(r3_201.Position))
+							_G.TweenToPrehistoric = false
+						end
+					end
+				end
+			end
+		end
+	end
+end
+spawn(r166_1)
+
+local r165_1 = r2_1.Sea["AddToggle"]("ToggleDefendVolcano", {Title = "Phòng Thủ", ["Description"] = "", ["Default"] = false})
+local r168_1 = function(r0_64)
+	_G.AutoDefendVolcano = r0_64
+	return
+end
+r165_1["OnChanged"](r168_1)
+
+local r166_1 = r2_1.Sea["AddToggle"]("ToggleMelee", {Title = "Dùng Melee", ["Description"] = "", ["Default"] = false})
+local r169_1 = function(r0_534)
+	_G.UseMelee = r0_534
+	return
+end
+r166_1["OnChanged"](r169_1)
+
+local r167_1 = r2_1.Sea["AddToggle"]("ToggleSword", {Title = "Dùng Sword", ["Description"] = "", ["Default"] = false})
+local r170_1 = function(r0_239)
+	_G.UseSword = r0_239
+	return
+end
+r167_1["OnChanged"](r170_1)
+
+local r168_1 = r2_1.Sea["AddToggle"]("ToggleGun", {Title = "Dùng Gun", ["Description"] = "", ["Default"] = false})
+local r171_1 = function(r0_439)
+	_G.UseGun = r0_439
+	return
+end
+r168_1["OnChanged"](r171_1)
+
+local r169_1 = function(r0_466)
+	local r1_466 = game:GetService("VirtualInputManager")
+	r1_466:SendKeyEvent(true, r0_466, false, game)
+	r1_466:SendKeyEvent(false, r0_466, false, game)
+	return
+end
+
+local r170_1 = function()
+	local r0_232 = game.Workspace.Map.PrehistoricIsland.Core:FindFirstChild("InteriorLava")
+	if r0_232 then
+		local r1_232 = r0_232:IsA("Model")
+		if not r1_232 then
+			r0_232:Destroy()
+		end
+	end
+	
+	local r1_232 = game.Workspace.Map:FindFirstChild("PrehistoricIsland")
+	if r1_232 then
+		local r2_232, r3_232, r4_232 = pairs(r1_232:GetDescendants())
+		for r5_232, r6_232 in r2_232 do
+			local r7_232 = r6_232:IsA("Part")
+			if r7_232 then
+				local name_check = r6_232.Name:lower():find("lava")
+				if name_check then
+					r6_232:Destroy()
+				end
+			end
+		end
+	end
+end
+
+local r171_1 = function()
+	local rocksFolder = game.Workspace.Map.PrehistoricIsland.Core.VolcanoRocks
+	if rocksFolder then
+		local r1_571, r2_571, r3_571 = pairs(rocksFolder:GetChildren())
+		for r4_571, r5_571 in r1_571 do
+			local r6_571 = r5_571
+			if not r6_571:IsA("Model") then
+				if r6_571.Name == "volcanorock" then
+					if r6_571:IsA("MeshPart") then
+						local r8_571 = Color3.fromRGB(185, 53, 56)
+						if r6_571.Color == r8_571 or r6_571.Color == Color3.fromRGB(185, 53, 57) then
+							return r6_571
+						end
+					end
+				end
+			end
+		end
+	end
+	return nil
+end
+
+local r172_1 = function(r0_82)
+	local r3_82, r4_82, r5_82 = pairs(game.Players.LocalPlayer.Backpack:GetChildren())
+	for r6_82, r7_82 in r3_82 do
+		if r7_82:IsA("Tool") and r7_82.ToolTip == r0_82 then
+			r7_82.Parent = game.Players.LocalPlayer.Character
+			local keys = {"Z", "X", "C", "V", "F"}
+			for i, key in ipairs(keys) do
+				wait()
+				pcall(function()
+					r169_1(key)
+				end)
+			end
+			r7_82.Parent = game.Players.LocalPlayer.Backpack
+		end
+	end
+end
+
+local r174_1 = function()
+	local r0_421 = wait()
+	if not r0_421 then
+		if _G.AutoDefendVolcano then
+			AutoHaki()
+			pcall(r170_1)
+			
+			local rock = r171_1()
+			if rock then
+				local offset = Vector3.new(0, 0, 0)
+				local targetCFrame = CFrame.new(rock.Position + offset)
+				Tween2(targetCFrame)
+				
+				if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - rock.Position).Magnitude <= 15 then
+					if _G.UseMelee then r172_1("Melee") end
+					if _G.UseSword then r172_1("Sword") end
+					if _G.UseGun then r172_1("Gun") end
+				end
+				_G.TweenToPrehistoric = false
+			else
+				_G.TweenToPrehistoric = true
+			end
+		end
+	end
+end
+spawn(r174_1)
+
+local r173_1 = r2_1.Sea["AddToggle"]("ToggleKillAura", {Title = "Đánh Golems Aura", ["Description"] = "", ["Default"] = false})
+local r176_1_cb = function(r0_56)
+	KillAura = r0_56
+	return
+end
+r173_1["OnChanged"](r176_1_cb)
+r0_1.Options["ToggleKillAura"]["SetValue"](false)
+
+local r175_1 = function()
+	local r0_476 = wait()
+	if not r0_476 then
+		if KillAura then
+			local r1_476 = function()
+				local r0_477, r1_477, r2_477 = pairs(game.Workspace.Enemies:GetDescendants())
+				for r3_477, r4_477 in r0_477 do
+					local r5_477 = r4_477:FindFirstChild("Humanoid")
+					if r5_477 then
+						if r5_477.Health > 0 and (r4_477.Name == "Golem" or r4_477.Name == "Magma Golem") then
+							local hrp = r4_477:FindFirstChild("HumanoidRootPart")
+							if hrp and (hrp.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 50 then
+                                sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
+								r5_477.Health = 0
+								hrp.CanCollide = false
+							end
+						end
+					end
+				end
+			end
+			pcall(r1_476)
+		end
+	end
+end
+spawn(r175_1)
+
+local r174_1 = r2_1.Sea["AddToggle"]("ToggleCollectBone", {Title = "Lụm Xương", ["Description"] = "", ["Default"] = false})
+local r177_1_cb = function(r0_408)
+	_G.AutoCollectBone = r0_408
+	return
+end
+r174_1["OnChanged"](r177_1_cb)
+
+local r176_1 = function()
+	local r0_580 = wait()
+	if not r0_580 then
+		if _G.AutoCollectBone then
+			local r0_580_desc, r1_580, r2_580 = pairs(workspace:GetDescendants())
+			for r3_580, r4_580 in r0_580_desc do
+				if r4_580:IsA("BasePart") and r4_580.Name == "DinoBone" then
+					Tween2(CFrame.new(r4_580.Position))
+                    break
+				end
+			end
+		end
+	end
+end
+spawn(r176_1)
+
+local r175_1 = r2_1.Sea["AddToggle"]("ToggleCollectEgg", {Title = "Lụm Trứng", ["Description"] = "", ["Default"] = false})
+local r178_1_cb = function(r0_581)
+	_G.AutoCollectEgg = r0_581
+	return
+end
+r175_1["OnChanged"](r178_1_cb)
+
+local r177_1 = function()
+	local r0_169 = wait()
+	if not r0_169 then
+		if _G.AutoCollectEgg then
+			local eggs = workspace.Map.PrehistoricIsland.Core.SpawnedDragonEggs:GetChildren()
+			if #eggs > 0 then
+				local r1_169 = math.random(1, #eggs)
+				local targetEgg = eggs[r1_169]
+				
+				if targetEgg:IsA("Model") and targetEgg.PrimaryPart then
+					Tween2(targetEgg.PrimaryPart.CFrame)
+					if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - targetEgg.PrimaryPart.Position).Magnitude <= 5 then
+						local r5_169 = game:GetService("VirtualInputManager")
+						r5_169:SendKeyEvent(true, "E", false, game)
+						wait(0.5)
+						r5_169:SendKeyEvent(false, "E", false, game)
+					end
+				end
+			end
+		end
+	end
+end
+spawn(r177_1)
